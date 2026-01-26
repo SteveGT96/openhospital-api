@@ -46,3 +46,6 @@ OH_API_PID
 
 ### Git ###
 /**/.gitkeep
+
+### Plugins ###
+/plugins/**/*.jar
