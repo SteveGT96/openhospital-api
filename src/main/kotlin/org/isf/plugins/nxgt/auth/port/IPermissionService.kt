@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.service.annotation.*
 
-@HttpExchange("/permissions")
+@HttpExchange("/permissions", contentType = "application/json", accept = ["application/json"])
 interface IPermissionService {
     @PostExchange("/search")
     fun findAll(

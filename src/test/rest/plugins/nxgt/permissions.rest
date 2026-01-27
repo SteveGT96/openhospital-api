@@ -1,0 +1,11 @@
+{{url}}/plugins/nxgt/permissions
+Authorization: Bearer {{token}}
+
+###
+POST {{url}}/plugins/nxgt/permissions
+Content-Type: application/json
+
+{
+  "name": "users.create",
+  "description": "Permission to create users"
+}

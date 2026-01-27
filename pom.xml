@@ -19,7 +19,7 @@
     <properties>
         <packaging.type>jar</packaging.type>
         <oh-core.version>1.14.2-SNAPSHOT</oh-core.version>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
         <kotlin.version>2.3.0</kotlin.version>
         <kotlinx-serialization.version>1.10.0</kotlinx-serialization.version>
         <kotlinx-datetime.version>0.6.2</kotlinx-datetime.version>
@@ -156,6 +156,10 @@
             <groupId>com.strange</groupId>
             <artifactId>nxgt-rest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/../nxgt-rest/build/libs/nxgt-rest-0.0.1-SNAPSHOT-plain.jar
+            </systemPath>
         </dependency>
     </dependencies>
 

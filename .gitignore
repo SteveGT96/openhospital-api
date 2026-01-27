@@ -8,6 +8,7 @@ bin
 *.log
 /static
 !static/swagger-ui/
+LOG_DEST
 
 #Project related
 .env

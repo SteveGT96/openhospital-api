@@ -21,14 +21,17 @@
  */
 package org.isf;
 
+import com.strange.api.config.NxgtRestLauncher;
 import jakarta.annotation.PostConstruct;
 
 import org.isf.generaldata.GeneralData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.ApplicationPidFileWriter;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportResource;
 
@@ -37,6 +40,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 @ImportResource({ "classpath*:/applicationContext.xml" })
 @SpringBootApplication
+@ConfigurationPropertiesScan(basePackages = {"org.isf"})
 public class OpenHospitalApiApplication extends SpringBootServletInitializer {
 
 	@Autowired

@@ -1,0 +1,16 @@
+###
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+> {%
+    client.test("Login successfully", function () {
+        client.assert(response.status === 200, `Login failed, got status code ${response.status} instead of 200`)
+    })
+    if (response.status === 200) {
+        client.global.set("token", jsonPath(response.body, "$.token"))
+    }
+%}

@@ -46,3 +46,14 @@ jwt.token.validityInSecondsForRememberMe=259200
 # needed to start application even without DB connection
 spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
 spring.jpa.hibernate.ddl-auto=none
+
+
+# Plugins configuration
+
+external.jars.java-path=/home/steve/.sdkman/candidates/java/current/bin/java
+external.jars.starters[0].name=nxgt-rest
+external.jars.starters[0].path=../nxgt-rest/build/libs/nxgt-rest-0.0.1-SNAPSHOT.jar
+external.jars.starters[0].port=4001
+external.jars.starters[0].args=--spring.profiles.active=dev
+external.jars.starters[0].enabled=true
+external.jars.starters[0].java-path=/home/steve/.sdkman/candidates/java/current/bin/java
