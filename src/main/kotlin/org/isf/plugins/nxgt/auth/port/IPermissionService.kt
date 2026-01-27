@@ -1,10 +1,10 @@
 package org.isf.plugins.nxgt.auth.port
 
-import com.strange.api.modules.users.model.Permission
-import com.strange.api.openapi.models.PaginatedPermission
-import com.strange.api.openapi.models.PatchPermissionRequest
-import com.strange.api.openapi.models.PermissionRequest
-import com.strange.api.openapi.models.SearchRequest
+import org.isf.plugins.nxgt.openapi.model.Permission
+import org.isf.plugins.nxgt.openapi.model.PaginatedPermission
+import org.isf.plugins.nxgt.openapi.model.PatchPermissionRequest
+import org.isf.plugins.nxgt.openapi.model.PermissionRequest
+import org.isf.plugins.nxgt.openapi.model.SearchRequest
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam

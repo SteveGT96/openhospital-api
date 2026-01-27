@@ -39,10 +39,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -142,29 +138,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-serialization-json</artifactId>
-            <version>${kotlinx-serialization.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-datetime</artifactId>
-            <version>${kotlinx-datetime.version}</version>
-        </dependency>
-
-        <!-- OH Plugins JAR -->
-        <dependency>
-            <groupId>com.strange</groupId>
-            <artifactId>nxgt-rest</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>
-                ${project.basedir}/../nxgt-rest/build/libs/nxgt-rest-0.0.1-SNAPSHOT-plain.jar
-            </systemPath>
-        </dependency>
     </dependencies>
 
     <build>
@@ -213,12 +186,77 @@
                         <artifactId>kotlin-maven-allopen</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.12.0</version> <!-- Use latest stable (7.8.0+ → 7.12.0+ excellent Jakarta + Jackson support) -->
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <generatorName>java</generatorName>
+                            <library>webclient</library>
+
+                            <!-- Option C: RestClient (Spring 6.1+, blocking, modern replacement for RestTemplate) -->
+                            <!-- <library>restclient</library> -->
+                            <inputSpec>${project.basedir}/src/main/resources/nxgt-api.yaml</inputSpec>
+
+                            <!-- Packages -->
+                            <modelPackage>org.isf.plugins.nxgt.openapi.model</modelPackage>
+                            <invokerPackage>org.isf.plugins.nxgt.openapi</invokerPackage>
+
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <dateLibrary>java8</dateLibrary>
+                            </configOptions>
+
+                            <!-- Output location -->
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+
+                            <!-- Usually good defaults -->
+                            <generateApis>false</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateSupportingFiles>false</generateSupportingFiles> <!-- includes ApiClient, JSON helpers -->
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
                     <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-maven-serialization</artifactId>
-                        <version>${kotlin.version}</version>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator</artifactId>
+                        <version>7.17.0</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

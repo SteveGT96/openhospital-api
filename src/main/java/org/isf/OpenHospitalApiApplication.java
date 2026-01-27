@@ -21,7 +21,6 @@
  */
 package org.isf;
 
-import com.strange.api.config.NxgtRestLauncher;
 import jakarta.annotation.PostConstruct;
 
 import org.isf.generaldata.GeneralData;

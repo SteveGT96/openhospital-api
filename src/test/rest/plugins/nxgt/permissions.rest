@@ -1,4 +1,4 @@
-{{url}}/plugins/nxgt/permissions
+{{url}}/plugins/nxgt/permissions?after=69787c54e9f0c457c2420719&first=2
 Authorization: Bearer {{token}}
 
 ###
@@ -6,10 +6,13 @@ Authorization: Bearer {{token}}
 Authorization: Bearer {{token}}
 
 ###
-POST {{url}}/plugins/nxgt/permissions/search
+POST {{url}}/plugins/nxgt/permissions/search?after=69787c54e9f0c457c2420719&first=2
 Content-Type: application/json
 
 {
+  "filter": {
+    "name": "users.update"
+  }
 }
 
 ###
