@@ -7,6 +7,7 @@ import com.strange.api.openapi.models.PermissionRequest;
 import com.strange.api.openapi.models.SearchRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.isf.plugins.nxgt.auth.port.IPermissionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,6 +52,7 @@ public class PermissionController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public Permission createPermission(
 		@RequestBody PermissionRequest body
 	) {

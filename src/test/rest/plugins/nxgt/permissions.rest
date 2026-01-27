@@ -2,10 +2,21 @@
 Authorization: Bearer {{token}}
 
 ###
+{{url}}/plugins/nxgt/permissions/69788063ecaee62a4ba7067c
+Authorization: Bearer {{token}}
+
+###
+POST {{url}}/plugins/nxgt/permissions/search
+Content-Type: application/json
+
+{
+}
+
+###
 POST {{url}}/plugins/nxgt/permissions
 Content-Type: application/json
 
 {
-  "name": "users.create",
-  "description": "Permission to create users"
+  "name": "users.delete",
+  "description": "Permission to delete users"
 }
