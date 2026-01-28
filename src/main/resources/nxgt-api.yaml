@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
   description: REST API with Spring Boot
-  title: NXGT Spring Boot
+  title: NXGT Rest
   version: 1.0.0
 servers:
   - description: Dev server
     url: http://localhost:8080
 security:
-  - Bearer: [ ]
+  - Bearer: []
 tags:
   - name: auth-controller
     description: Auth controller
@@ -47,7 +47,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
   /auth/register:
     post:
       tags:
@@ -71,7 +71,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
   /auth/refresh-token:
     post:
       tags:
@@ -95,7 +95,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
   /auth/logout:
     post:
       tags:
@@ -109,7 +109,7 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
   /categories:
     post:
       tags:
@@ -149,9 +149,10 @@ paths:
       summary: Get categories
       operationId: findCategories
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -312,13 +313,14 @@ paths:
   /permissions/search:
     post:
       tags:
-        - permissions-controller
-      summary: Get permissions
+        - permissions
+      summary: Search permissions
       operationId: findPermissions
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -473,9 +475,10 @@ paths:
       summary: Get roles
       operationId: findRoles
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -658,9 +661,10 @@ paths:
       summary: Get attributes
       operationId: findAttributes
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -815,9 +819,10 @@ paths:
       summary: Get tags
       operationId: findTags
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -965,7 +970,7 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
   /uploads/search:
     post:
       tags:
@@ -973,9 +978,10 @@ paths:
       summary: Get files
       operationId: findFiles
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -1030,7 +1036,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
     delete:
       tags:
         - uploads-controller
@@ -1072,7 +1078,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
     patch:
       tags:
         - users-controller
@@ -1111,9 +1117,10 @@ paths:
       summary: Get users
       operationId: findUsers
       parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/size'
-        - $ref: '#/components/parameters/paged'
+        - $ref: '#/components/parameters/first'
+        - $ref: '#/components/parameters/last'
+        - $ref: '#/components/parameters/before'
+        - $ref: '#/components/parameters/after'
       requestBody:
         required: true
         content:
@@ -1187,7 +1194,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/InternalError'
-      security: [ ]
+      security: []
     put:
       tags:
         - users-controller
@@ -1627,65 +1634,27 @@ components:
         - id
         - name
         - metadata
-    SortDirection:
-      type: string
-      enum:
-        - ASC
-        - DESC
-      description: The direction in which to sort results.
-    SortItem:
-      type: object
-      required:
-        - key
-        - direction
-      properties:
-        key:
-          type: string
-          description: The field to sort by
-        direction:
-          $ref: '#/components/schemas/SortDirection'
-          description: The direction in which to sort results
     SearchRequest:
       type: object
       properties:
         filter:
           $ref: '#/components/schemas/JsonObject'
           description: The search filter object
-        sort:
-          type: array
-          items:
-            $ref: '#/components/schemas/SortItem'
-          description: The list of fields to sort by
     PageInfo:
       type: object
       properties:
-        number:
-          type: integer
-          description: The current page number (1-indexed)
-        size:
-          type: integer
-          description: The size of the page
-        numberOfElements:
-          type: integer
-          description: The number of elements on the current page
-        totalElements:
-          type: integer
-          description: The total number of elements
-        totalPages:
-          type: integer
-          description: The total number of pages
+        startCursor:
+          type: string
+          description: The cursor marking the start of the page
+        endCursor:
+          type: string
+          description: The cursor marking the end of the page
         hasPreviousPage:
           type: boolean
           description: Whether there is a previous page
         hasNextPage:
           type: boolean
           description: Whether there is a next page
-        previousPage:
-          type: integer
-          description: The number of the previous page (if exists)
-        nextPage:
-          type: integer
-          description: The number of the next page (if exists)
     PaginatedCategory:
       type: object
       properties:
@@ -2342,26 +2311,30 @@ components:
     ResourceDeleted:
       description: The resource was successfully deleted
   parameters:
-    page:
+    first:
+      name: first
       in: query
-      name: page
-      description: The page number to return.
       schema:
-        type: integer
-        minimum: 1
-    size:
+        type: number
+      description: The limit of items to return
+    last:
+      name: last
       in: query
-      name: size
-      description: The number of items to return per page.
       schema:
-        type: integer
-        minimum: 1
-    paged:
+        type: number
+      description: The limit of items to return
+    before:
+      name: before
       in: query
-      name: paged
-      description: Whether to return the results as a paged response.
       schema:
-        type: boolean
+        type: string
+      description: The cursor value to fetch items before the given value
+    after:
+      name: after
+      in: query
+      schema:
+        type: string
+      description: The cursor value to fetch items after the given value
     id:
       name: id
       in: path
