@@ -1,8 +1,6 @@
 package org.isf.utils
 
-import jakarta.annotation.PostConstruct
 import org.isf.config.ExternalJarsConfig
-import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -15,7 +13,7 @@ class MultiExternalJarStarter(
     private val config: ExternalJarsConfig
 ) {
 
-    private val logger = LoggerFactory.getLogger(MultiExternalJarStarter::class.java)
+    private val logger by slf4j()
 
 
     @EventListener(ApplicationReadyEvent::class)

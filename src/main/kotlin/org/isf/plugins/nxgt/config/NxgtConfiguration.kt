@@ -15,6 +15,7 @@ class NxgtConfiguration {
     companion object {
         const val NAME = "nxgt"
     }
+
     @Bean(NAME)
     fun provideRestClientFactory(): HttpServiceProxyFactory {
         val restClient = RestClient.create("http://localhost:4001")
